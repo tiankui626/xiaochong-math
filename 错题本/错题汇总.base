@@ -1,0 +1,35 @@
+filters:
+  and:
+    - file.hasTag("错题")
+    - file.ext == "md"
+formulas:
+  status: if(mastered, "✅ 已掌握", "❌ 未掌握")
+properties:
+  lecture:
+    displayName: 讲次
+  topic:
+    displayName: 主题
+  formula.status:
+    displayName: 状态
+views:
+  - type: table
+    name: 所有错题
+    groupBy:
+      property: topic
+      direction: ASC
+    order:
+      - file.name
+      - lecture
+      - topic
+      - formula.status
+      - file.mtime
+  - type: table
+    name: 未掌握
+    filters:
+      and:
+        - mastered != true
+    order:
+      - file.name
+      - lecture
+      - topic
+      - file.mtime
